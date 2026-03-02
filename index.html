@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikah | Andi & Oumaima</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Inter',sans-serif;
+    background:#ffffff;
+    color:#1a1a1a;
+    overflow:hidden;
+}
+
+/* ================= GOLD SHIMMER ================= */
+.gold-text{
+    background:linear-gradient(90deg,#c6a75e,#f5e6b3,#d4af37,#f5e6b3,#c6a75e);
+    background-size:200% auto;
+    color:transparent;
+    background-clip:text;
+    -webkit-background-clip:text;
+    animation: shimmer 5s linear infinite;
+}
+@keyframes shimmer{
+    to{ background-position:200% center; }
+}
+
+/* ================= ENTRANCE SCREEN ================= */
+.seal-screen{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:#fdfbf7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    transition:1.5s ease;
+}
+
+/* Envelope */
+.envelope{
+    position:relative;
+    width:340px;
+    height:220px;
+    background:#fff;
+    box-shadow:0 30px 70px rgba(0,0,0,0.12);
+    perspective:1000px;
+}
+
+/* Flap */
+.flap{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#faf6ef;
+    clip-path:polygon(0 0,100% 0,50% 70%);
+    transform-origin:top;
+    transition:1.6s cubic-bezier(.77,0,.18,1);
+    z-index:3;
+}
+
+/* Letter */
+.letter{
+    position:absolute;
+    width:90%;
+    height:160px;
+    background:white;
+    top:30px;
+    left:5%;
+    text-align:center;
+    padding-top:40px;
+    font-family:'Playfair Display',serif;
+    font-size:18px;
+    letter-spacing:4px;
+    transform:translateY(40px);
+    transition:1.6s ease;
+    z-index:1;
+}
+
+/* Wax Seal */
+.seal{
+    position:absolute;
+    width:80px;
+    height:80px;
+    background:radial-gradient(circle at 30% 30%, #ff5a5a, #990000);
+    border-radius:50%;
+    top:55%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:4;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    transition:.3s;
+}
+.seal:active{
+    transform:translate(-50%,-50%) scale(0.9);
+}
+
+/* Gold Monogram */
+.monogram{
+    font-family:'Great Vibes',cursive;
+    font-size:28px;
+    color:#f5e6b3;
+}
+
+/* OPEN STATES */
+.open .flap{
+    transform:rotateX(180deg);
+}
+.open .letter{
+    transform:translateY(-120px);
+}
+
+.fade-out{
+    opacity:0;
+    transform:scale(1.05);
+}
+
+/* ================= MAIN SITE ================= */
+.section{
+    padding:120px 20px;
+    text-align:center;
+    max-width:900px;
+    margin:auto;
+    opacity:0;
+    transform:translateY(60px);
+    transition:1.2s ease;
+}
+.reveal{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.divider{
+    width:70px;
+    height:2px;
+    background:#d4af37;
+    margin:30px auto;
+}
+
+.names{
+    font-family:'Great Vibes',cursive;
+    font-size:4rem;
+    margin:40px 0;
+}
+
+.subtitle{
+    font-family:'Playfair Display',serif;
+    letter-spacing:4px;
+    font-size:.9rem;
+    color:#b89c4d;
+}
+
+.date{
+    letter-spacing:6px;
+    font-family:'Playfair Display',serif;
+    font-size:1.1rem;
+    color:#b89c4d;
+}
+
+.text{
+    margin-top:40px;
+    line-height:1.9;
+    font-weight:300;
+    font-size:.95rem;
+    max-width:600px;
+    margin-left:auto;
+    margin-right:auto;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= ENTRANCE ================= -->
+<div class="seal-screen" id="sealScreen">
+    <div class="envelope" id="envelope">
+        <div class="flap"></div>
+        <div class="letter">NIKAH INVITATION</div>
+        <div class="seal" onclick="openEnvelope()">
+            <div class="monogram">A & O</div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="section" id="mainContent">
+    <div class="divider"></div>
+    <div class="subtitle">In the Name of Allah</div>
+    <div class="names gold-text">Andi & Oumaima</div>
+    <div class="date">04 • 04 • 2026</div>
+    <div class="divider"></div>
+
+    <div class="text">
+        With gratitude and joy, we invite you to witness and celebrate
+        the Nikah ceremony of Andi & Oumaima.
+        <br><br>
+        Your presence is a blessing to our union.
+    </div>
+</div>
+
+<!-- Sound -->
+<audio id="sealSound" src="https://assets.mixkit.co/sfx/preview/mixkit-paper-flutter-482.mp3"></audio>
+
+<script>
+function openEnvelope(){
+    const envelope=document.getElementById("envelope");
+    const screen=document.getElementById("sealScreen");
+    const sound=document.getElementById("sealSound");
+
+    sound.play();
+    envelope.classList.add("open");
+
+    setTimeout(()=>{
+        screen.classList.add("fade-out");
+    },1500);
+
+    setTimeout(()=>{
+        screen.style.display="none";
+        document.body.style.overflow="auto";
+        revealSections();
+        window.addEventListener("scroll",revealSections);
+    },2200);
+}
+
+function revealSections(){
+    document.querySelectorAll(".section").forEach(sec=>{
+        const top=sec.getBoundingClientRect().top;
+        if(top < window.innerHeight-120){
+            sec.classList.add("reveal");
+        }
+    });
+}
+</script>
+
+</body>
+</html>
